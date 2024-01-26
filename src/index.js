@@ -5,7 +5,9 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 
-import routes from './routes';
+// import routes from './userRoutes';
+import userRoutes from './routes/users';
+import authRoutes from './routes/auth';
 import database from './config/database';
 import {
   appErrorHandler,
@@ -29,7 +31,8 @@ app.use(morgan('combined', { stream: logStream }));
 
 database();
 
-app.use(`/api/${api_version}`, routes());
+app.use(`/api/${api_version}/users`, userRoutes());
+app.use(`/api/${api_version}/auth`, authRoutes());
 app.use(appErrorHandler);
 app.use(genericErrorHandler);
 app.use(notFound);
